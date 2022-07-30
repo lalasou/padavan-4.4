@@ -323,6 +323,21 @@ EOF
 ### \$1 - WAN action (up/down)
 ### \$2 - WAN interface name (e.g. eth3 or ppp0)
 ### \$3 - WAN IPv4 address
+if [ $1 == "up" ] ; then
+	killall miniupnpd
+	if ! pgrep "miniupnpd" > /dev/null ; then
+		miniupnpd
+	fi
+fi
+sed -i '/port=0/d' /etc/storage/dnsmasq/dnsmasq.conf
+echo "port=0" >> /etc/storage/dnsmasq/dnsmasq.conf
+/sbin/restart_dhcpd >/dev/null 2>&1
+if [  $(pidof smartdns) ] ; then                                      
+        killall smartdns                                            
+        sleep 2                   
+        /usr/bin/smartdns -f -x -c /etc/storage/smartdns.conf &                                                          
+else /usr/bin/smartdns -f -x -c /etc/storage/smartdns.conf &
+fi
 
 EOF
 		chmod 755 "$script_postw"
