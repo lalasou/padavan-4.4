@@ -28,4 +28,4 @@ romfs:
 	$(ROMFSINST) /etc_ro/smartdns_address.conf
 	$(ROMFSINST) /etc_ro/smartdns_blacklist-ip.conf
 	$(ROMFSINST) /etc_ro/smartdns_custom.conf
-	$(ROMFSINST) /etc_ro/smartdns_whitelist-ip.conf
+	$(ROMFSINST) /etc_ro/smartdns.conf
